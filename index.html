@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SES Admin — Datalytics · VTU 2025 Scheme</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ib:#1F4E79;--ib2:#163a5a;--ib3:#d0e4f5;--ib4:#eaf3fb;
+  --cream:#f6f9fc;--w:#fff;--sand:#e8f0f8;--ink:#0f2033;--soft:#1e3a52;--muted:#5a7a96;
+  --amber:#d97706;--al:#fef3c7;--am:#f59e0b;
+  --teal:#0d9488;--tl:#ccfbf1;--rose:#e11d48;--rl:#ffe4e6;
+  --sky:#0284c7;--sl:#e0f2fe;--purple:#7c3aed;--pl:#ede9fe;
+  --border:#c8daea;--bc:#a8c5df;--r:10px;--rl2:18px;
+  --log-bg:#0d1f2e;--log-text:#a8d8f0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+/* ── HEADER ── */
+header{background:var(--ib);border-bottom:2px solid var(--ib2);padding:0 2rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(15,32,51,.25)}
+.hi{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+.logo{display:flex;align-items:center;gap:12px}
+.li{width:40px;height:40px;background:linear-gradient(135deg,var(--amber),#b45309);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.2rem;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3);flex-shrink:0}
+.lt .brand{font-family:'DM Serif Display',serif;font-size:1.15rem;color:#fff;letter-spacing:-.01em;line-height:1.2}
+.lt .tag{font-size:.68rem;color:rgba(255,255,255,.65);font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.hbadge{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.06em;text-transform:uppercase}
+
+/* ── MAIN ── */
+main{flex:1;max-width:1200px;margin:0 auto;padding:2rem 2rem;width:100%}
+
+/* ── HERO ── */
+.hero{margin-bottom:1.8rem}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(1.7rem,3.5vw,2.4rem);color:var(--ib);letter-spacing:-.02em;line-height:1.15;margin-bottom:.45rem}
+.hero h1 em{font-style:italic;color:var(--amber)}
+.hero p{font-size:.92rem;color:var(--muted);line-height:1.65;max-width:620px}
+
+/* ── META CONTROLS (Branch / Section) ── */
+.meta-bar{display:flex;gap:1rem;margin-bottom:1.4rem;flex-wrap:wrap;align-items:flex-end}
+.meta-field{display:flex;flex-direction:column;gap:4px}
+.meta-field label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ib)}
+.meta-input{background:var(--w);border:1.5px solid var(--border);border-radius:8px;padding:8px 13px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);width:200px;transition:border-color .18s,box-shadow .18s;outline:none}
+.meta-input:focus{border-color:var(--ib);box-shadow:0 0 0 3px rgba(31,78,121,.12)}
+.meta-input::placeholder{color:var(--muted)}
+
+/* ── DROP ZONE ── */
+.dz{background:var(--w);border:2px dashed var(--bc);border-radius:var(--rl2);padding:2.5rem 2rem;text-align:center;cursor:pointer;transition:all .22s;position:relative;overflow:hidden}
+.dz::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(31,78,121,.04),transparent 70%);pointer-events:none}
+.dz:hover,.dz.over{border-color:var(--ib);background:var(--ib4);transform:translateY(-2px);box-shadow:0 4px 18px rgba(31,78,121,.12)}
+.dz-icon{width:58px;height:58px;background:var(--ib4);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.8rem;transition:transform .2s}
+.dz:hover .dz-icon{transform:scale(1.08)}
+.dz h2{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--ib);margin-bottom:.35rem}
+.dz p{font-size:.86rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.5}
+#fi{display:none}
+.bup{display:inline-flex;align-items:center;gap:8px;background:var(--ib);color:#fff;border:none;padding:9px 20px;border-radius:7px;font-family:'DM Sans',sans-serif;font-size:.86rem;font-weight:600;cursor:pointer;transition:all .18s}
+.bup:hover{background:var(--ib2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(31,78,121,.22)}
+
+/* ── FILE LIST ── */
+.fl{margin-top:1.2rem;display:none}
+.flh{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem}
+.flh h3{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.bcl{font-size:.78rem;color:var(--rose);background:none;border:none;cursor:pointer;font-weight:600;padding:2px 6px;border-radius:4px;transition:background .15s}
+.bcl:hover{background:var(--rl)}
+.fis{display:flex;flex-direction:column;gap:5px;max-height:210px;overflow-y:auto}
+.fit{display:flex;align-items:center;gap:9px;background:var(--w);border:1px solid var(--border);border-radius:7px;padding:7px 11px;font-size:.82rem}
+.fn{flex:1;font-weight:500;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fs{font-size:.71rem;font-weight:700;padding:2px 7px;border-radius:10px;font-family:'JetBrains Mono',monospace}
+.sp{background:#f1f5f9;color:#64748b}.sr{background:var(--al);color:var(--amber)}.sd{background:var(--tl);color:var(--teal)}.se{background:var(--rl);color:var(--rose)}
+
+/* ── PROGRESS ── */
+.pb{margin-top:1.2rem;background:var(--w);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.4rem;display:none}
+.pl2{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.pt{font-size:.83rem;font-weight:600;color:var(--soft)}.pp{font-family:'JetBrains Mono',monospace;font-size:.83rem;font-weight:600;color:var(--ib)}
+.ptrack{background:var(--sand);border-radius:99px;height:7px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--ib),var(--sky));border-radius:99px;width:0%;transition:width .4s ease}
+.psub{font-size:.76rem;color:var(--muted);margin-top:.4rem}
+
+/* ── PARSING LOG ── */
+.log-wrap{margin-top:1.2rem;display:none}
+.log-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem}
+.log-hdr span{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.log-clear{font-size:.74rem;background:none;border:none;color:var(--muted);cursor:pointer;padding:2px 6px;border-radius:4px}
+.log-clear:hover{background:var(--sand);color:var(--ib)}
+.log-console{background:var(--log-bg);border-radius:10px;padding:.9rem 1rem;height:160px;overflow-y:auto;font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--log-text);line-height:1.7;border:1px solid #1a3a50}
+.log-console .ll{color:#7dd3fc}.log-console .le{color:#fca5a5}.log-console .lw{color:#fde68a}.log-console .ls{color:#6ee7b7}.log-console .lg{color:#a78bfa}
+
+/* ── ACTION BAR ── */
+.ab{display:flex;align-items:center;gap:1rem;margin-top:1.5rem;flex-wrap:wrap}
+.bpr{display:inline-flex;align-items:center;gap:9px;background:var(--ib);color:#fff;border:none;padding:12px 26px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 2px 10px rgba(31,78,121,.28)}
+.bpr:hover:not(:disabled){background:var(--ib2);transform:translateY(-2px);box-shadow:0 6px 20px rgba(31,78,121,.35)}
+.bpr:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.bdl{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--amber),#b45309);color:#fff;border:none;padding:12px 26px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 2px 10px rgba(217,119,6,.28)}
+.bdl:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 20px rgba(217,119,6,.38)}
+.bdl:disabled{opacity:.4;cursor:not-allowed;transform:none}
+
+/* ── PREVIEW ── */
+.pv{margin-top:2rem;display:none}
+.pv h3{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--ib);margin-bottom:.9rem}
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:10px;margin-bottom:1.2rem}
+.sc{background:var(--w);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;position:relative;overflow:hidden}
+.sc::after{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.ca::after{background:var(--amber)}.ct::after{background:var(--teal)}.cr::after{background:var(--rose)}.cs::after{background:var(--sky)}.cp::after{background:var(--ib)}.cg::after{background:var(--purple)}
+.sl2{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.35rem}
+.sv{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--ink);line-height:1}
+.ss{font-size:.72rem;color:var(--muted);margin-top:.2rem}
+
+/* ── TOP5 TABLE ── */
+.t5w{background:var(--w);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.t5w h4{padding:.85rem 1.1rem;font-family:'DM Serif Display',serif;font-size:1rem;border-bottom:1px solid var(--border);background:var(--ib4);color:var(--ib)}
+table{width:100%;border-collapse:collapse;font-size:.82rem}
+thead th{background:var(--ib);color:#fff;padding:8px 11px;text-align:left;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+tbody tr{border-bottom:1px solid var(--border);transition:background .12s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--ib4)}
+td{padding:8px 11px;color:var(--soft)}
+.rk{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:.75rem;font-weight:800;font-family:'JetBrains Mono',monospace}
+.r1{background:#fef3c7;color:#92400e}.r2{background:#f1f5f9;color:#334155}.r3{background:#fff7ed;color:#9a3412}.rn{background:#f3f4f6;color:#6b7280}
+.pill{padding:2px 8px;border-radius:10px;font-size:.71rem;font-weight:700}
+.pp2{background:var(--tl);color:var(--teal)}.pf2{background:var(--rl);color:var(--rose)}.pd2{background:var(--al);color:#92400e}
+.arrear-pill{background:#fde68a;color:#92400e;padding:1px 6px;border-radius:8px;font-size:.68rem;font-weight:700;margin-left:4px;font-family:'JetBrains Mono',monospace}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:2rem;right:2rem;background:var(--ib);color:#fff;padding:11px 18px;border-radius:9px;font-size:.85rem;font-weight:500;box-shadow:0 12px 40px rgba(15,32,51,.2);transform:translateY(80px);opacity:0;transition:all .3s ease;z-index:999;max-width:320px}
+#toast.show{transform:translateY(0);opacity:1}
+#toast.ok{background:var(--teal)}#toast.err{background:var(--rose)}#toast.warn{background:var(--amber)}
+
+/* ── FOOTER ── */
+footer{background:var(--ib2);color:rgba(255,255,255,.5);text-align:center;padding:1.1rem;font-size:.76rem;letter-spacing:.03em;line-height:1.8}
+footer strong{color:rgba(255,255,255,.88)}
+
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--sand)}::-webkit-scrollbar-thumb{background:var(--bc);border-radius:99px}
+@media(max-width:640px){main{padding:1.2rem 1rem}.sg{grid-template-columns:repeat(2,1fr)}.meta-bar{flex-direction:column}.meta-input{width:100%}}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="hi">
+    <div class="logo">
+      <div class="li">SE</div>
+      <div class="lt">
+        <div class="brand">SES Admin — Datalytics</div>
+        <div class="tag">VTU 2025 Scheme · Result Analysis System</div>
+      </div>
+    </div>
+    <span class="hbadge">JCE Belagavi · Dr Shivkumar Math</span>
+  </div>
+</header>
+
+<main>
+  <!-- ═══ HERO ═══ -->
+  <div class="hero">
+    <h1>VTU 2025 Scheme<br><em>Result Intelligence</em> Platform</h1>
+    <p>Upload VTU provisional result PDFs in bulk. Automatically computes SGPA, detects arrear subjects, classifies performance, and exports a complete 6-sheet Excel analysis report.</p>
+  </div>
+
+  <!-- ═══ META CONTROLS ═══ -->
+  <div class="meta-bar">
+    <div class="meta-field">
+      <label>Branch / Department</label>
+      <input class="meta-input" id="inpBranch" type="text" placeholder="e.g. Computer Science" maxlength="60">
+    </div>
+    <div class="meta-field">
+      <label>Section</label>
+      <input class="meta-input" id="inpSection" type="text" placeholder="e.g. A" maxlength="10" style="width:100px">
+    </div>
+    <div class="meta-field">
+      <label>Academic Year</label>
+      <input class="meta-input" id="inpYear" type="text" placeholder="e.g. 2025-26" maxlength="10" style="width:120px">
+    </div>
+  </div>
+
+  <!-- ═══ DROP ZONE ═══ -->
+  <div class="dz" id="dz">
+    <div class="dz-icon">📑</div>
+    <h2>Drop VTU Result PDFs Here</h2>
+    <p>Drag &amp; drop multiple student result PDFs, or click to browse.<br>Supports VTU UG/PG 2025 Scheme · Handles arrear/backlog subjects automatically.</p>
+    <button class="bup" onclick="document.getElementById('fi').click()">📂 &nbsp;Browse Files</button>
+    <input type="file" id="fi" multiple accept=".pdf">
+  </div>
+
+  <!-- ═══ FILE LIST ═══ -->
+  <div class="fl" id="fl">
+    <div class="flh">
+      <h3 id="fcl">0 files selected</h3>
+      <button class="bcl" onclick="clearAll()">✕ Clear All</button>
+    </div>
+    <div class="fis" id="fis"></div>
+  </div>
+
+  <!-- ═══ PROGRESS ═══ -->
+  <div class="pb" id="pb">
+    <div class="pl2"><span class="pt" id="plbl">Parsing…</span><span class="pp" id="ppct">0%</span></div>
+    <div class="ptrack"><div class="pfill" id="pfill"></div></div>
+    <div class="psub" id="psub">Initialising…</div>
+  </div>
+
+  <!-- ═══ PARSING LOG ═══ -->
+  <div class="log-wrap" id="logWrap">
+    <div class="log-hdr">
+      <span>🖥 Parsing Log — SES Admin Console</span>
+      <button class="log-clear" onclick="clearLog()">Clear</button>
+    </div>
+    <div class="log-console" id="logConsole"></div>
+  </div>
+
+  <!-- ═══ ACTION BAR ═══ -->
+  <div class="ab">
+    <button class="bpr" id="bpr" disabled onclick="run()">⚡ &nbsp;Parse &amp; Analyse</button>
+    <button class="bdl" id="bdl" disabled onclick="dlExcel()">⬇ &nbsp;Download SES Analysis Report</button>
+  </div>
+
+  <!-- ═══ PREVIEW ═══ -->
+  <div class="pv" id="pv">
+    <h3>Analysis Preview</h3>
+    <div class="sg" id="sg"></div>
+    <div class="t5w">
+      <h4>🏆 Top 5 Performers — by Grand Total</h4>
+      <table>
+        <thead><tr><th>Rank</th><th>USN</th><th>Name</th><th>SGPA</th><th>Grand Total</th><th>Arrears</th><th>Status</th></tr></thead>
+        <tbody id="t5b"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <strong>SHIVA's Digital Ecosystem</strong> — Crafted by Dr. Shivkumar Math &nbsp;·&nbsp; HOD Physics, Jain College of Engineering, Belagavi ©2025
+</footer>
+<div id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+let files=[], students=[];
+
+// ══════════════════════════════════════════
+// VTU 2025 SCHEME — CREDIT & GRADE TABLES
+// ══════════════════════════════════════════
+
+// Specific overrides
+const CREDIT_OVERRIDES={
+  '25MA31':4,'25MA41':4,'25MA51':4,
+  '25CS31':4,'25CS41':4,'25CS51':4,
+  '25CS32':4,'25CS42':4,
+  '25MA31C':4,'25MA41C':4,
+};
+
+function getCredits(code){
+  const upper=code.toUpperCase();
+  if(CREDIT_OVERRIDES[upper])return CREDIT_OVERRIDES[upper];
+  // Extract position suffix digit
+  const m=upper.match(/(\d)$/)||upper.match(/[A-Z](\d)[A-Z]?$/);
+  const last=upper.replace(/C$/,''); // strip trailing C
+  const digit=parseInt(last[last.length-1]);
+  if(isNaN(digit))return 3;
+  if(digit>=1&&digit<=5)return 3;   // Theory / Integrated
+  if(digit>=6&&digit<=8)return 1;   // Labs / AEC
+  return 3;
+}
+
+function gradePoint(total,result){
+  if(!result||result==='A'||result==='X'||result==='F'||result==='W')return 0;
+  if(total>=90)return 10;
+  if(total>=80)return 9;
+  if(total>=70)return 8;
+  if(total>=60)return 7;
+  if(total>=55)return 6;
+  if(total>=50)return 5;
+  if(total>=40)return 4;
+  return 0;
+}
+
+function gradeLabel(gp){
+  const map={10:'O',9:'A+',8:'A',7:'B+',6:'B',5:'C',4:'P',0:'F'};
+  return map[gp]||'F';
+}
+
+// Detect if a subject code belongs to a semester earlier than current
+// VTU Old scheme: 1BMATS101 — first digit is semester number (1B=sem1, 2B=sem2 etc.)
+// VTU 2025 scheme: 25CS31 — 5th char (index 4) is semester digit
+function detectArrear(code,currentSem){
+  const upper=code.toUpperCase();
+  const curSem=parseInt(currentSem)||1;
+  let subSem=0;
+
+  // Old scheme: code starts with a single digit 1-8 then a letter e.g. 1BMATS101
+  const oldM=upper.match(/^([1-8])[A-Z]/);
+  if(oldM) subSem=parseInt(oldM[1]);
+
+  // 2025 scheme: 2-digit year prefix then dept then sem digit e.g. 25CS31 → pos4='3'
+  const newM=upper.match(/^\d{2}[A-Z]{2,3}(\d)\d/);
+  if(newM) subSem=parseInt(newM[1]);
+
+  return subSem>0&&subSem<curSem;
+}
+
+// ══════════════════════════════════════════
+// FILE HANDLING / DROP
+// ══════════════════════════════════════════
+const dzEl=document.getElementById('dz'),fiEl=document.getElementById('fi');
+dzEl.addEventListener('dragover',e=>{e.preventDefault();dzEl.classList.add('over')});
+dzEl.addEventListener('dragleave',()=>dzEl.classList.remove('over'));
+dzEl.addEventListener('drop',e=>{e.preventDefault();dzEl.classList.remove('over');addFiles([...e.dataTransfer.files].filter(f=>f.type==='application/pdf'))});
+dzEl.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')fiEl.click()});
+fiEl.addEventListener('change',()=>{addFiles([...fiEl.files]);fiEl.value=''});
+
+function addFiles(nf){const ex=new Set(files.map(f=>f.name));nf.forEach(f=>{if(!ex.has(f.name))files.push(f)});renderFL()}
+
+function clearAll(){
+  files=[];students=[];renderFL();
+  document.getElementById('pv').style.display='none';
+  document.getElementById('bdl').disabled=true;
+  document.getElementById('pb').style.display='none';
+  document.getElementById('logWrap').style.display='none';
+}
+
+function renderFL(){
+  const fl=document.getElementById('fl');
+  document.getElementById('fcl').textContent=`${files.length} file${files.length!==1?'s':''} selected`;
+  if(!files.length){fl.style.display='none';document.getElementById('bpr').disabled=true;return}
+  fl.style.display='block';
+  document.getElementById('fis').innerHTML=files.map((f,i)=>`
+    <div class="fit"><span>📄</span><span class="fn">${f.name}</span><span class="fs sp" id="fs${i}">PENDING</span></div>`).join('');
+  document.getElementById('bpr').disabled=false;
+}
+
+function setFS(i,cls,lbl){const e=document.getElementById(`fs${i}`);if(e){e.className=`fs ${cls}`;e.textContent=lbl}}
+function setProg(p,lbl,sub){document.getElementById('pfill').style.width=p+'%';document.getElementById('ppct').textContent=p+'%';document.getElementById('plbl').textContent=lbl;document.getElementById('psub').textContent=sub}
+
+// ══════════════════════════════════════════
+// PARSING LOG
+// ══════════════════════════════════════════
+function logLine(msg,cls='ll'){
+  const c=document.getElementById('logConsole');
+  const ts=new Date().toLocaleTimeString('en-IN',{hour12:false});
+  c.innerHTML+=`<div class="${cls}">[${ts}] ${msg}</div>`;
+  c.scrollTop=c.scrollHeight;
+}
+function clearLog(){document.getElementById('logConsole').innerHTML=''}
+
+// ══════════════════════════════════════════
+// PDF TEXT EXTRACTION
+// ══════════════════════════════════════════
+async function extractText(file){
+  const buf=await file.arrayBuffer();
+  const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+  let out='';
+  for(let p=1;p<=pdf.numPages;p++){
+    const pg=await pdf.getPage(p);
+    const tc=await pg.getTextContent();
+    const byY={};
+    tc.items.forEach(it=>{
+      const y=Math.round(it.transform[5]);
+      if(!byY[y])byY[y]=[];
+      byY[y].push({x:it.transform[4],s:it.str});
+    });
+    Object.keys(byY).map(Number).sort((a,b)=>a-b).forEach(y=>{
+      out+=byY[y].sort((a,b)=>a.x-b.x).map(i=>i.s).join(' ')+'\n';
+    });
+  }
+  return out;
+}
+
+// ══════════════════════════════════════════
+// PARSE ONE STUDENT — VTU MULTI-SCHEME
+// ══════════════════════════════════════════
+function parseStudent(text,fname){
+  const st={usn:'',name:'',semester:'',subjects:[],fname,arrears:[]};
+
+  // ── USN: try labelled field first, then broad pattern ──
+  const mu=text.match(/University\s+Seat\s+Number\s*:\s*([A-Z0-9]+)/i);
+  if(mu) st.usn=mu[1].trim();
+  if(!st.usn){
+    // Broad USN: digit + 2-3 uppercase letters + 2 digits + 2-3 letters + 2-3 digits
+    const fb=text.match(/\b(\d[A-Z]{2,3}\d{2}[A-Z]{2,3}\d{2,3})\b/);
+    if(fb) st.usn=fb[1].toUpperCase();
+  }
+
+  const mn=text.match(/Student\s+Name\s*:\s*([^\n:]+)/i);
+  st.name=mn?mn[1].trim().replace(/\s+/g,' '):'';
+
+  const ms=text.match(/Semester\s*:\s*(\d+)/i);
+  st.semester=ms?ms[1]:'1';
+  st.batch=st.usn?st.usn.replace(/\d{3}$/,''):'';
+
+  // ── Subject Code Patterns ──
+  // VTU Old scheme: 1BMATS101, 1BPHYS102, 1BCEDS103, 1BESC104C etc.
+  //   Structure: digit + 1letter + 2-5letters + 2-3digits + optional(letter)
+  // VTU 2025 scheme: 25CS31, 25MA41, 25EE51 etc.
+  //   Structure: 2digits + 2-3letters + 2digits
+  // Combined: starts with 1-2 digits, then letters, then digits, optional trailing letter
+  const CODE_RE=/^(\d{1,2}[A-Z]{1,5}\d{2,3}[A-Z]?)\s/i;
+
+  // Marks+result at end of line: ...  INT  EXT  TOTAL  RESULT  [DATE]
+  // Result can be P, F, A, W, X, NE
+  const MARKS_END=/\b(\d{1,3})\s+(\d{1,3})\s+(\d{1,3})\s+([PFAWX]|NE)\b/;
+
+  // Full subject on one line: CODE  NAME...  INT  EXT  TOTAL  RESULT
+  const FULL_RE=/^(\d{1,2}[A-Z]{1,5}\d{2,3}[A-Z]?)\s+(.+?)\s+(\d{1,3})\s+(\d{1,3})\s+(\d{1,3})\s+([PFAWX]|NE)\b/i;
+
+  // Continuation marks line (no code): INT EXT TOTAL RESULT
+  const MARKS_ONLY=/^(\d{1,3})\s+(\d{1,3})\s+(\d{1,3})\s+([PFAWX]|NE)\b/i;
+
+  const SKIP=/^(Subject|Code|Internal|External|Result|Nomenclature|Abbreviations|P\s*->|F\s*->|A\s*->|W\s*->|X,|NE\s*->|Note\s*:|1\)\s|2\)\s|Generated|VTU\s|Visvesva|University|Student\s|Semester|ಸಹಿ|Sd[-\/]|REGISTRAR|Announced|Updated|Marks)/i;
+
+  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
+
+  let i=0;
+  while(i<lines.length){
+    const l=lines[i];
+    if(SKIP.test(l)){i++;continue;}
+
+    // ── Try full match: CODE + NAME + MARKS on same line ──
+    const fm=l.match(FULL_RE);
+    if(fm){
+      const code=fm[1].toUpperCase();
+      const name=fm[2].replace(/\s+/g,' ').trim();
+      st.subjects.push({code,name,int:+fm[3],ext:+fm[4],tot:+fm[5],res:normR(fm[6])});
+      i++; continue;
+    }
+
+    // ── Try CODE-only line: code starts line, marks come later ──
+    const cm=l.match(CODE_RE);
+    if(cm){
+      const code=cm[1].toUpperCase();
+      // Name starts after the code on the same line
+      let nameParts=[l.slice(cm[0].length).trim()];
+
+      // Look ahead: accumulate name continuation lines until we hit a marks line
+      let j=i+1;
+      while(j<lines.length){
+        const nxt=lines[j];
+        if(SKIP.test(nxt)){j++;continue;}
+        // If next line starts a NEW subject code, give up
+        if(nxt.match(CODE_RE)) break;
+        // If this line has marks pattern: INT EXT TOT RES at start or end
+        if(MARKS_ONLY.test(nxt)){
+          // This is the marks line
+          const mm=nxt.match(MARKS_ONLY);
+          st.subjects.push({code,name:nameParts.join(' ').replace(/\s+/g,' ').trim(),int:+mm[1],ext:+mm[2],tot:+mm[3],res:normR(mm[4])});
+          i=j+1; break;
+        }
+        // Check if marks are embedded at END of this line (name + marks on same line)
+        const em=nxt.match(MARKS_END);
+        if(em){
+          // Everything before the marks is part of the name
+          const nameExtra=nxt.slice(0,nxt.lastIndexOf(em[0])).trim();
+          if(nameExtra) nameParts.push(nameExtra);
+          st.subjects.push({code,name:nameParts.join(' ').replace(/\s+/g,' ').trim(),int:+em[1],ext:+em[2],tot:+em[3],res:normR(em[4])});
+          i=j+1; break;
+        }
+        // Otherwise it's more name text
+        nameParts.push(nxt);
+        j++;
+      }
+      // If we reached end without finding marks, still advance
+      if(i===lines.indexOf(l)) i++;
+      continue;
+    }
+    i++;
+  }
+
+  // ── Deduplicate subjects (same code appearing twice from overlapping lines) ──
+  const seen=new Set();
+  st.subjects=st.subjects.filter(s=>{
+    if(seen.has(s.code))return false;
+    seen.add(s.code);return true;
+  });
+
+  // ── Arrear detection & SGPA ──
+  const curSem=parseInt(st.semester)||1;
+  let sgpaNumer=0,sgpaDenom=0;
+
+  st.subjects.forEach(sub=>{
+    const isArrear=detectArrear(sub.code,curSem);
+    sub.isArrear=isArrear;
+    sub.credits=getCredits(sub.code);
+    sub.gp=gradePoint(sub.tot,sub.res);
+    sub.grade=gradeLabel(sub.gp);
+    sub.resultType=isArrear?'ARREAR':'REGULAR';
+    if(isArrear) st.arrears.push(sub.code);
+    // SGPA: only current semester, only passed subjects
+    if(!isArrear&&sub.res==='P'){
+      sgpaNumer+=sub.gp*sub.credits;
+      sgpaDenom+=sub.credits;
+    }
+  });
+
+  st.sgpa=sgpaDenom>0?+(sgpaNumer/sgpaDenom).toFixed(2):0;
+  st.percentage=+(st.sgpa*10-7.5)*10; // VTU formula: %=(SGPA×10−7.5)×10, clamp 0-100
+  if(st.percentage<0)st.percentage=0;
+  if(st.percentage>100)st.percentage=100;
+  st.percentage=+st.percentage.toFixed(1);
+
+  // Classification
+  if(st.sgpa>=7.75)st.classification='Distinction';
+  else if(st.sgpa>=6.75)st.classification='First Class';
+  else if(st.sgpa>0)st.classification='Second Class';
+  else st.classification='—';
+
+  // Grand total (all subjects)
+  st.grandTotal=st.subjects.reduce((a,s)=>a+(isNaN(s.tot)?0:s.tot),0);
+  st.passCount=st.subjects.filter(s=>s.res==='P').length;
+  st.failCount=st.subjects.filter(s=>['F','W','NE'].includes(s.res)).length;
+  st.absentCount=st.subjects.filter(s=>['A','X'].includes(s.res)).length;
+
+  const hasAny=st.subjects.length>0;
+  if(!hasAny) st.status='UNKNOWN';
+  else if(st.subjects.every(s=>['A','X'].includes(s.res))) st.status='DETAINED';
+  else if(st.subjects.some(s=>['F','A','W','NE','X'].includes(s.res))) st.status='FAIL';
+  else st.status='PASS';
+
+  return st;
+}
+
+function normR(r){
+  if(!r)return 'F';
+  r=r.toString().toUpperCase().trim();
+  // Strip non-alphabetic but keep the result token
+  r=r.replace(/[^A-Z]/g,'');
+  if(r==='P')return 'P';
+  if(r==='F')return 'F';
+  if(r==='A'||r==='AB')return 'A';
+  if(r==='W')return 'W';
+  if(r==='X'||r==='NE'||r==='NOTELIGIBLE')return 'X';
+  // Anything else that starts with P treat as P
+  if(r.startsWith('P'))return 'P';
+  return 'F';
+}
+
+// ══════════════════════════════════════════
+// MAIN RUN
+// ══════════════════════════════════════════
+async function run(){
+  if(!files.length)return;
+  students=[];
+  document.getElementById('pb').style.display='block';
+  document.getElementById('logWrap').style.display='block';
+  document.getElementById('bpr').disabled=true;
+  document.getElementById('bdl').disabled=true;
+  document.getElementById('pv').style.display='none';
+  logLine(`═══ SES Admin — Parse Session Started · ${files.length} files ═══`,'lg');
+  logLine(`Branch: ${document.getElementById('inpBranch').value||'—'}  Section: ${document.getElementById('inpSection').value||'—'}  Year: ${document.getElementById('inpYear').value||'—'}`,'ll');
+
+  for(let i=0;i<files.length;i++){
+    const f=files[i];
+    setFS(i,'sr','PARSING');
+    setProg(Math.round(i/files.length*100),`Parsing ${i+1}/${files.length}: ${f.name}`,'Extracting text from PDF…');
+    try{
+      const txt=await extractText(f);
+      // Log first 300 chars of extracted text for debugging
+      logLine(`📄 Raw text preview: ${txt.slice(0,200).replace(/\n/g,' ↵ ')}`,'lg');
+      const s=parseStudent(txt,f.name);
+      students.push(s);
+      const ok=s.subjects.length>0;
+      setFS(i,ok?'sd':'se',ok?'DONE':'NO DATA');
+      if(ok){
+        const arrMsg=s.arrears.length>0?` ⚠ ARREARS: [${s.arrears.join(', ')}]`:'';
+        const cls=s.arrears.length>0?'lw':'ls';
+        logLine(`✔ ${s.usn||f.name}  ${s.name}  | Sem:${s.semester} | SGPA:${s.sgpa} | ${s.status}${arrMsg}`,cls);
+      } else {
+        logLine(`✘ ${f.name} — No subject data extracted`,'le');
+      }
+    }catch(e){
+      console.error(e);setFS(i,'se','ERROR');
+      logLine(`✘ ERROR processing ${f.name}: ${e.message}`,'le');
+    }
+  }
+
+  setProg(100,`Complete — ${students.length} students parsed`,'All files processed.');
+  document.getElementById('bpr').disabled=false;
+
+  const valid=students.filter(s=>s.subjects.length>0);
+  const arrearStudents=valid.filter(s=>s.arrears.length>0);
+  logLine(`═══ Done · Valid: ${valid.length} · With Arrears: ${arrearStudents.length} · Pass: ${valid.filter(s=>s.status==='PASS').length} · Fail: ${valid.filter(s=>s.status==='FAIL').length} ═══`,'lg');
+
+  if(valid.length){
+    document.getElementById('bdl').disabled=false;
+    renderPreview();
+    toast(`✅ ${valid.length} students parsed. ${arrearStudents.length} with arrears.`,'ok');
+  } else {
+    toast('⚠️ No subject data extracted. Check PDF format.','err');
+  }
+}
+
+function cStats(){
+  const total=students.length;
+  const pass=students.filter(s=>s.status==='PASS').length;
+  const fail=students.filter(s=>s.status==='FAIL').length;
+  const detained=students.filter(s=>s.status==='DETAINED').length;
+  const withArrears=students.filter(s=>s.arrears&&s.arrears.length>0).length;
+  const validSGPA=students.filter(s=>s.sgpa>0);
+  const avgSGPA=validSGPA.length?+(validSGPA.reduce((a,s)=>a+s.sgpa,0)/validSGPA.length).toFixed(2):0;
+  return{total,pass,fail,detained,withArrears,avgSGPA,passPct:total>0?+(pass/total*100).toFixed(1):0};
+}
+
+function renderPreview(){
+  const st=cStats();
+  document.getElementById('sg').innerHTML=`
+    <div class="sc ca"><div class="sl2">Total Students</div><div class="sv">${st.total}</div><div class="ss">All uploaded PDFs</div></div>
+    <div class="sc ct"><div class="sl2">Passed</div><div class="sv">${st.pass}</div><div class="ss">All subjects cleared</div></div>
+    <div class="sc cr"><div class="sl2">Failed</div><div class="sv">${st.fail}</div><div class="ss">≥1 subject failed</div></div>
+    <div class="sc cs"><div class="sl2">Pass Rate</div><div class="sv">${st.passPct}%</div><div class="ss">Overall pass percentage</div></div>
+    <div class="sc cp"><div class="sl2">Avg SGPA</div><div class="sv">${st.avgSGPA}</div><div class="ss">Current sem only</div></div>
+    <div class="sc cg"><div class="sl2">With Arrears</div><div class="sv">${st.withArrears}</div><div class="ss">Backlog subjects</div></div>
+  `;
+  const top5=[...students].filter(s=>s.subjects.length>0).sort((a,b)=>b.grandTotal-a.grandTotal).slice(0,5);
+  const medals=['🥇','🥈','🥉','4️⃣','5️⃣'];
+  const rcls=['r1','r2','r3','rn','rn'];
+  document.getElementById('t5b').innerHTML=top5.map((s,i)=>{
+    const ps=s.status==='PASS'?'pp2':s.status==='DETAINED'?'pd2':'pf2';
+    const arrPill=s.arrears&&s.arrears.length>0?`<span class="arrear-pill">+${s.arrears.length} ARR</span>`:'';
+    return `<tr>
+      <td><span class="rk ${rcls[i]}">${medals[i]}</span></td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:.77rem;color:#1F4E79;font-weight:600">${s.usn||'—'}</td>
+      <td style="font-weight:600">${s.name||'—'}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#d97706">${s.sgpa}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:#1F4E79">${s.grandTotal}</td>
+      <td>${arrPill||'<span style="color:#9ca3af;font-size:.75rem">None</span>'}</td>
+      <td><span class="pill ${ps}">${s.status}</span></td></tr>`;
+  }).join('');
+  document.getElementById('pv').style.display='block';
+}
+
+// ══════════════════════════════════════════════════════════════════
+// EXCEL GENERATION — VTU 2025 Scheme · 6-sheet workbook
+// ══════════════════════════════════════════════════════════════════
+function dlExcel(){
+  const valid=students.filter(s=>s.subjects.length>0);
+  if(!valid.length)return;
+
+  const branch=document.getElementById('inpBranch').value.trim()||'N/A';
+  const section=document.getElementById('inpSection').value.trim()||'N/A';
+  const acYear=document.getElementById('inpYear').value.trim()||'N/A';
+
+  // ── Subject map ──
+  const subOrder=[];const subMap={};
+  valid.forEach(s=>s.subjects.forEach(sub=>{
+    if(!subMap[sub.code]){
+      subOrder.push(sub.code);
+      subMap[sub.code]={code:sub.code,name:sub.name,shortName:subShortName(sub.name),
+        ints:[],exts:[],tots:[],pass:0,fail:0,absent:0,scores75:0,total:0};
+    }
+    const sm=subMap[sub.code];
+    sm.total++;
+    if(sub.res!=='A'&&sub.res!=='X'){sm.ints.push(sub.int);sm.exts.push(sub.ext)}
+    if(!isNaN(sub.tot)&&sub.tot>0)sm.tots.push(sub.tot);
+    if(sub.res==='P'){sm.pass++;if(sub.tot>=75)sm.scores75++;}
+    else if(['A','X'].includes(sub.res))sm.absent++;
+    else sm.fail++;
+  }));
+
+  const st=cStats();
+  const top5=[...valid].sort((a,b)=>b.grandTotal-a.grandTotal).slice(0,5);
+  const top5USNs=new Set(top5.map(s=>s.usn));
+  const failedStudents=valid.filter(s=>s.status==='FAIL');
+  const batches=new Set(valid.map(s=>s.batch));
+  const batchStr=[...batches].filter(Boolean).join(', ')||'N/A';
+  const semStr=valid[0]?valid[0].semester:'1';
+
+  const wb=XLSX.utils.book_new();
+
+  // ── Institutional Blue palette ──
+  const C={
+    IB:'1F4E79',IB2:'163A5A',IB3:'D0E4F5',IB4:'EAF3FB',IB_HDR:'2E6DA4',
+    AMBER:'D97706',AMBER_L:'FEF3C7',
+    TEAL:'0D9488',TEAL_L:'CCFBF1',
+    ROSE:'E11D48',ROSE_L:'FFE4E6',
+    SKY:'0284C7',SKY_L:'E0F2FE',
+    PURPLE:'7C3AED',PURPLE_L:'EDE9FE',
+    INK:'0F2033',SOFT:'1E3A52',MUTED:'5A7A96',
+    WHITE:'FFFFFF',CREAM:'F6F9FC',
+    GOLD:'92400E',GOLD_L:'FEF3C7',
+    LGREY:'F9FAFB',GREY:'374151',
+    PASS_BG:'DCFCE7',PASS_FG:'15803D',
+    FAIL_BG:'FFE4E6',FAIL_FG:'E11D48',
+    DET_BG:'FEF3C7',DET_FG:'92400E',
+    ARR_BG:'FEF9C3',ARR_FG:'854D0E',
+    DIST_BG:'EDE9FE',DIST_FG:'5B21B6',
+    FC_BG:'E0F2FE',FC_FG:'0369A1',
+    SC_BG:'F0FDF4',SC_FG:'166534',
+  };
+
+  function sFont(bold,sz,col){return{bold:!!bold,sz:sz||11,color:{rgb:col||C.SOFT}}}
+  function sFill(col){return{patternType:'solid',fgColor:{rgb:col}}}
+  function sAlign(h,v,wrap){return{horizontal:h||'left',vertical:v||'center',wrapText:!!wrap}}
+  function allBorder(){return{top:{style:'thin',color:{rgb:'BFD7ED'}},bottom:{style:'thin',color:{rgb:'BFD7ED'}},left:{style:'thin',color:{rgb:'BFD7ED'}},right:{style:'thin',color:{rgb:'BFD7ED'}}}}
+  function medBorder(){return{top:{style:'medium',color:{rgb:'1F4E79'}},bottom:{style:'medium',color:{rgb:'1F4E79'}},left:{style:'medium',color:{rgb:'1F4E79'}},right:{style:'medium',color:{rgb:'1F4E79'}}}}
+
+  function Ce(){return{v:'',t:'s'}}
+  function Cs(v,s){return{v:v??'',t:'s',s:s||{}}}
+  function Cn(v,s){return{v:isNaN(+v)?0:+v,t:'n',s:s||{}}}
+  function Cpct(v,s){return{v:isNaN(+v)?0:+v,t:'n',s:{...(s||{}),numFmt:'0.0"%"'}}}
+  function Cdec(v,s){return{v:isNaN(+v)?0:+v,t:'n',s:{...(s||{}),numFmt:'0.00'}}}
+
+  function HDR(v,bg,sz){return Cs(v??'',{font:sFont(true,sz||11,C.WHITE),fill:sFill(bg||C.IB),alignment:sAlign('center','center',true),border:allBorder()})}
+  function IBH(v,sz){return HDR(v,C.IB,sz)}  // Institutional Blue header
+  function TITLE(v,sz){return Cs(v,{font:sFont(true,sz||13,C.IB),alignment:sAlign('left','center',false)})}
+  function SUBTITLE(v){return Cs(v,{font:{...sFont(false,9,C.MUTED),italic:true}})}
+  function LBL(v,col){return Cs(v,{font:sFont(true,11,col||C.IB),alignment:sAlign('left','center')})}
+  function VAL(v,col,bold){return Cs(v??'',{font:sFont(!!bold,11,col||C.SOFT),alignment:sAlign('center','center'),border:allBorder()})}
+  function NVAL(v,col,bold){return Cn(v,{font:sFont(!!bold,11,col||C.SOFT),alignment:sAlign('center','center'),border:allBorder()})}
+  function NDEC(v,col,bold){return Cdec(v,{font:sFont(!!bold,11,col||C.SOFT),alignment:sAlign('center','center'),border:allBorder()})}
+  function PVAL(v,col){return Cpct(v,{font:sFont(true,11,col||C.SKY),alignment:sAlign('center','center'),border:allBorder()})}
+  function DATA(v,col,bold){return Cs(v??'',{font:sFont(!!bold,11,col||C.SOFT),alignment:sAlign('left','center'),border:allBorder()})}
+  function NDATA(v,col,bold){return Cn(v,{font:sFont(!!bold,11,col||C.SOFT),alignment:sAlign('center','center'),border:allBorder()})}
+  function STATUS(v){
+    const isP=v==='PASS'||v==='P',isDet=v==='DETAINED',isFail=v==='FAIL'||v==='F';
+    const fg=isP?C.PASS_FG:isDet?C.DET_FG:isFail?C.FAIL_FG:C.MUTED;
+    const bg=isP?C.PASS_BG:isDet?C.DET_BG:isFail?C.FAIL_BG:C.LGREY;
+    return Cs(v,{font:sFont(true,11,fg),fill:sFill(bg),alignment:sAlign('center','center'),border:allBorder()});
+  }
+  function RES(v){
+    const isP=v==='P';const isA=v==='A'||v==='X';
+    const fg=isP?C.PASS_FG:isA?C.DET_FG:C.FAIL_FG;
+    const bg=isP?C.PASS_BG:isA?C.DET_BG:C.FAIL_BG;
+    return Cs(v||'—',{font:sFont(true,10,fg),fill:sFill(bg),alignment:sAlign('center','center'),border:allBorder()});
+  }
+  function ARREAR_CELL(isArr){
+    const v=isArr?'ARREAR':'REGULAR';
+    const fg=isArr?C.ARR_FG:C.PASS_FG;
+    const bg=isArr?C.ARR_BG:C.PASS_BG;
+    return Cs(v,{font:sFont(true,10,fg),fill:sFill(bg),alignment:sAlign('center','center'),border:allBorder()});
+  }
+  // SGPA cell: amber highlight if student is in top5
+  function SGPA_CELL(val,isTop5){
+    const bg=isTop5?C.AMBER_L:C.LGREY;
+    const fg=isTop5?C.AMBER:C.IB;
+    return Cdec(val,{font:sFont(true,11,fg),fill:sFill(bg),alignment:sAlign('center','center'),border:isTop5?medBorder():allBorder()});
+  }
+  function RANK_CELL(i){
+    const medals=['🥇 RANK 1','🥈 RANK 2','🥉 RANK 3','4️⃣  RANK 4','5️⃣  RANK 5'];
+    const bgs=[C.GOLD_L,'F1F5F9','FFF7ED',C.LGREY,C.LGREY];
+    const fgs=[C.GOLD,'334155','9A3412','6B7280','6B7280'];
+    return Cs(medals[i]||`${i+1}`,{font:sFont(true,11,fgs[i]||C.MUTED),fill:sFill(bgs[i]||C.LGREY),alignment:sAlign('center','center'),border:allBorder()});
+  }
+
+  function buildSheet(rows){
+    const ws={};let maxCol=0;
+    rows.forEach((row,ri)=>row.forEach((cell,ci)=>{
+      if(!cell)return;
+      ws[XLSX.utils.encode_cell({r:ri,c:ci})]=cell;
+      if(ci>maxCol)maxCol=ci;
+    }));
+    ws['!ref']=XLSX.utils.encode_range({s:{r:0,c:0},e:{r:rows.length-1,c:maxCol}});
+    return ws;
+  }
+  function MC(ws,r1,c1,r2,c2){if(!ws['!merges'])ws['!merges']=[];ws['!merges'].push({s:{r:r1,c:c1},e:{r:r2,c:c2}})}
+  function R(...c){return c}
+
+  const avg=arr=>arr.length?+(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1):0;
+
+  // Batch grouping
+  function batchGroup(usn){
+    const m=usn.match(/(\d+)$/);if(!m)return'Other';
+    const n=+m[1];
+    if(n>=1&&n<=20)return'001-020';
+    if(n>=21&&n<=41)return'021-041';
+    return'042-081+';
+  }
+  const batchData={};
+  valid.forEach(s=>{
+    const g=batchGroup(s.usn);
+    if(!batchData[g])batchData[g]={pass:0,fail:0,detained:0};
+    if(s.status==='PASS')batchData[g].pass++;
+    else if(s.status==='FAIL')batchData[g].fail++;
+    else batchData[g].detained++;
+  });
+  const avgScores=subOrder.map(code=>{const sm=subMap[code];return{name:sm.shortName,avg:avg(sm.tots)}});
+
+  // ═══════════════════════════════════════════════════════════
+  // SHEET 1: 📊 Dashboard
+  // ═══════════════════════════════════════════════════════════
+  const D=[];
+  D.push(R(TITLE(`📋  VTU SEMESTER ${semStr}  —  ${branch.toUpperCase()}  RESULT ANALYSIS DASHBOARD  |  Dec 2025 / Jan 2026`,14)));
+  D.push(R(SUBTITLE(`Visvesvaraya Technological University, Belagavi  •  ${batchStr} Batch  •  Branch: ${branch}  •  Section: ${section}  •  AY: ${acYear}  •  ${valid.length} Students`)));
+  D.push([]);
+
+  // KPI row
+  D.push(R(HDR('👥 Total\nStudents',C.IB,12),Ce(),Ce(),HDR('✅ Passed',C.PASS_FG,12),Ce(),Ce(),HDR('❌ Failed',C.FAIL_FG,12),Ce(),Ce(),HDR('⚠️ Detained',C.DET_FG,12),Ce(),Ce(),HDR('📈 Pass Rate',C.TEAL,12),Ce(),Ce(),HDR('📊 Avg SGPA',C.AMBER,12)));
+  D.push(R(
+    Cs(`${st.total}`,{font:sFont(true,28,C.IB),fill:sFill(C.IB4),alignment:sAlign('center','center'),border:medBorder()}),Ce(),Ce(),
+    Cs(`${st.pass}`,{font:sFont(true,28,C.PASS_FG),fill:sFill(C.PASS_BG),alignment:sAlign('center','center'),border:medBorder()}),Ce(),Ce(),
+    Cs(`${st.fail}`,{font:sFont(true,28,C.FAIL_FG),fill:sFill(C.FAIL_BG),alignment:sAlign('center','center'),border:medBorder()}),Ce(),Ce(),
+    Cs(`${st.detained}`,{font:sFont(true,28,C.DET_FG),fill:sFill(C.DET_BG),alignment:sAlign('center','center'),border:medBorder()}),Ce(),Ce(),
+    Cs(`${st.passPct}%`,{font:sFont(true,28,C.TEAL),fill:sFill(C.TEAL_L),alignment:sAlign('center','center'),border:medBorder()}),Ce(),Ce(),
+    Cs(`${st.avgSGPA}`,{font:sFont(true,28,C.AMBER),fill:sFill(C.AMBER_L),alignment:sAlign('center','center'),border:medBorder()})
+  ));
+  D.push([]);
+
+  // Overall distribution + Subject-wise
+  D.push(R(HDR('  🔵  OVERALL RESULT DISTRIBUTION',C.IB,11),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),HDR('  📚  SUBJECT-WISE PASS / FAIL COUNT',C.IB_HDR,11),Ce(),Ce(),Ce()));
+  D.push(R(LBL('Status'),LBL('Count'),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),LBL('Subject'),LBL('Pass'),LBL('Fail'),LBL('Absent/NE')));
+  const distR=[['PASS',st.pass],['FAIL',st.fail],['DETAINED',st.detained]];
+  const maxDR=Math.max(distR.length,subOrder.length);
+  for(let i=0;i<maxDR;i++){
+    const dr=distR[i];const sc=subOrder[i]?subMap[subOrder[i]]:null;
+    const row=[];
+    if(dr){row.push(STATUS(dr[0]));row.push(NVAL(dr[1],dr[0]==='PASS'?C.PASS_FG:dr[0]==='FAIL'?C.FAIL_FG:C.DET_FG,true));}
+    else{row.push(Ce());row.push(Ce())}
+    row.push(Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce());
+    if(sc){row.push(DATA(sc.shortName,C.IB,true));row.push(NVAL(sc.pass,C.PASS_FG));row.push(NVAL(sc.fail,C.FAIL_FG));row.push(NVAL(sc.absent,C.DET_FG));}
+    D.push(row);
+  }
+  D.push([]);
+
+  // Top5 + Failed
+  D.push(R(HDR('  🏆  TOP 5 PERFORMERS',C.PURPLE,11),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),HDR('  ❌  FAILED STUDENTS LIST',C.FAIL_FG,11),Ce(),Ce()));
+  D.push(R(LBL('Rank'),LBL('USN'),LBL('Name'),LBL('SGPA'),LBL('Grand Total'),Ce(),Ce(),Ce(),Ce(),LBL('USN'),LBL('Name'),LBL('Failed Subjects')));
+  const medals2=['🥇','🥈','🥉','4️⃣','5️⃣'];
+  const maxTF=Math.max(top5.length,failedStudents.length);
+  for(let i=0;i<maxTF;i++){
+    const t=top5[i];const f=failedStudents[i];const row=[];
+    if(t){
+      row.push(Cs(medals2[i]||`${i+1}`,{font:sFont(true,12,C.GOLD),fill:sFill(C.GOLD_L),alignment:sAlign('center','center'),border:allBorder()}));
+      row.push(DATA(t.usn,C.IB,true));row.push(DATA(t.name,C.INK,true));
+      row.push(SGPA_CELL(t.sgpa,true));
+      row.push(NVAL(t.grandTotal,C.AMBER,true));
+      row.push(Ce(),Ce(),Ce(),Ce());
+    } else row.push(Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce());
+    if(f){
+      row.push(DATA(f.usn,C.FAIL_FG,true));row.push(DATA(f.name,C.INK));
+      const fsubs=f.subjects.filter(s=>['F','A','W','X'].includes(s.res)).map(s=>subMap[s.code]?subMap[s.code].shortName:s.code).join(', ');
+      row.push(DATA(fsubs,C.FAIL_FG));
+    }
+    D.push(row);
+  }
+  D.push([]);
+
+  // Batch-wise + Avg scores
+  D.push(R(HDR('  📊  BATCH-WISE PASS / FAIL COMPARISON',C.IB_HDR,11),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),HDR('  📈  SUBJECT AVERAGE TOTAL SCORE',C.AMBER,11),Ce()));
+  D.push(R(LBL('Batch'),LBL('Pass'),LBL('Fail'),LBL('Detained'),Ce(),Ce(),Ce(),Ce(),Ce(),LBL('Subject'),LBL('Avg Score')));
+  const bKeys=Object.keys(batchData);
+  const maxBW=Math.max(bKeys.length,avgScores.length);
+  for(let i=0;i<maxBW;i++){
+    const b=bKeys[i];const sc=avgScores[i];const row=[];
+    if(b){row.push(DATA(b,C.IB,true));row.push(NVAL(batchData[b].pass,C.PASS_FG));row.push(NVAL(batchData[b].fail,C.FAIL_FG));row.push(NVAL(batchData[b].detained,C.DET_FG));}
+    else row.push(Ce(),Ce(),Ce(),Ce());
+    row.push(Ce(),Ce(),Ce(),Ce(),Ce());
+    if(sc){row.push(DATA(sc.name,C.IB,true));row.push(Cs(sc.avg.toFixed(1),{font:sFont(true,11,C.AMBER),alignment:sAlign('center','center'),border:allBorder()}));}
+    D.push(row);
+  }
+  D.push([]);
+  D.push(R(SUBTITLE(`Generated: ${new Date().toLocaleString('en-IN')}  |  ${batchStr} Batch  |  Total: ${st.total}  |  Pass: ${st.pass}  |  Fail: ${st.fail}  |  Detained: ${st.detained}  |  Avg SGPA: ${st.avgSGPA}`)));
+
+  const ws1=buildSheet(D);
+  [0,3,6,9,12,15].forEach(c=>{MC(ws1,3,c,3,c+2);MC(ws1,4,c,4,c+2)});
+  MC(ws1,0,0,0,15);MC(ws1,1,0,1,15);
+  ws1['!cols']=[{wch:14},{wch:20},{wch:28},{wch:12},{wch:14},{wch:8},{wch:8},{wch:8},{wch:4},{wch:22},{wch:10},{wch:10},{wch:22},{wch:10}];
+  ws1['!rows']=[{hpt:20},{hpt:16},{hpt:6},{hpt:36},{hpt:52}];
+  XLSX.utils.book_append_sheet(wb,ws1,'📊 Dashboard');
+
+  // ═══════════════════════════════════════════════════════════
+  // SHEET 2: 🏆 Top 5 Performers
+  // ═══════════════════════════════════════════════════════════
+  const T5=[];
+  T5.push(R(TITLE(`🏆  TOP 5 PERFORMERS  —  VTU Semester ${semStr}  |  ${branch}  |  Dec 2025 / Jan 2026`,14)));
+  T5.push(R(SUBTITLE(`Visvesvaraya Technological University, Belagavi  •  ${batchStr} Batch  •  Ranked by Grand Total  •  SGPA: Current Semester only`)));
+  T5.push([]);
+  T5.push(R(IBH('Rank'),IBH('USN'),IBH('Student Name'),IBH('Subject\nCode'),IBH('Subject Name'),IBH('Credits'),IBH('Internal'),IBH('External'),IBH('Total'),IBH('Grade\nPoint'),IBH('Grade'),IBH('Result'),IBH('Type'),IBH('Grand\nTotal'),IBH('SGPA')));
+
+  const t5Rank=[C.GOLD_L,'F1F5F9','FFF7ED',C.LGREY,C.LGREY];
+  const t5FG=[C.GOLD,'334155','9A3412','6B7280','6B7280'];
+  const t5medals=['🥇 RANK 1','🥈 RANK 2','🥉 RANK 3','4️⃣  RANK 4','5️⃣  RANK 5'];
+  top5.forEach((s,ri)=>{
+    T5.push(R(Cs(`  ${t5medals[ri]}  •  ${s.usn}  •  ${s.name}  •  Grand Total: ${s.grandTotal}  •  SGPA: ${s.sgpa}`,{font:sFont(true,11,t5FG[ri]),fill:sFill(t5Rank[ri]),alignment:sAlign('left','center'),border:{top:{style:'medium',color:{rgb:'1F4E79'}},bottom:{style:'medium',color:{rgb:'1F4E79'}},left:{style:'medium',color:{rgb:'1F4E79'}},right:{style:'medium',color:{rgb:'1F4E79'}}}})));
+    s.subjects.forEach((sub,si)=>{
+      const isA=sub.res==='A'||sub.res==='X';
+      T5.push(R(
+        si===0?RANK_CELL(ri):Ce(),
+        si===0?DATA(s.usn,C.IB,true):Ce(),
+        si===0?DATA(s.name,C.INK,true):Ce(),
+        DATA(sub.code,C.PURPLE,true),
+        DATA(subFriendlyName(sub.name),C.INK),
+        NDATA(sub.credits,C.IB),
+        isA?VAL('—',C.MUTED):NDATA(sub.int,C.TEAL),
+        isA?VAL('—',C.MUTED):NDATA(sub.ext,C.SKY),
+        isA?VAL('—',C.MUTED):NDATA(sub.tot,C.INK,true),
+        isA?VAL('—',C.MUTED):NDATA(sub.gp,C.IB,true),
+        isA?VAL('—',C.MUTED):VAL(sub.grade,C.IB,true),
+        RES(sub.res),
+        ARREAR_CELL(sub.isArrear),
+        si===0?NVAL(s.grandTotal,C.AMBER,true):Ce(),
+        si===0?SGPA_CELL(s.sgpa,true):Ce()
+      ));
+    });
+    T5.push([]);
+  });
+
+  // Comparison table
+  T5.push(R(IBH('  📊  SUBJECT-WISE COMPARISON',undefined,11),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce(),Ce()));
+  const cmpHdr=[LBL('Subject')];
+  top5.forEach((s,i)=>cmpHdr.push(HDR(`#${i+1} ${s.name.split(' ')[0]}`,t5Rank[i].length===6?C.IB:C.IB_HDR)));
+  cmpHdr.push(IBH('Max'));
+  T5.push(cmpHdr);
+  subOrder.forEach(code=>{
+    const sm=subMap[code];const row=[DATA(sm.shortName,C.INK,true)];
+    top5.forEach(s=>{const sub=s.subjects.find(x=>x.code===code);row.push(sub&&sub.res!=='A'?NDATA(sub.tot,C.AMBER):VAL('—',C.MUTED))});
+    row.push(NDATA(100,C.MUTED));T5.push(row);
+  });
+  const gtRow=[IBH('GRAND TOTAL')];
+  top5.forEach(s=>gtRow.push(NVAL(s.grandTotal,C.AMBER,true)));
+  gtRow.push(NVAL(subOrder.length*100,C.MUTED,true));T5.push(gtRow);
+  const sgRow=[IBH('SGPA')];
+  top5.forEach(s=>sgRow.push(SGPA_CELL(s.sgpa,true)));
+  sgRow.push(VAL('10.00',C.MUTED,true));T5.push(sgRow);
+  T5.push([]);
+  T5.push(R(SUBTITLE(`🏛️  VTU 2025 Scheme  |  Dec 2025 / Jan 2026  |  Sem ${semStr}  |  ${branch}  |  ${batchStr}  |  All results are provisional`)));
+
+  const ws2=buildSheet(T5);
+  ws2['!cols']=[{wch:16},{wch:26},{wch:32},{wch:16},{wch:36},{wch:9},{wch:11},{wch:11},{wch:11},{wch:11},{wch:8},{wch:9},{wch:10},{wch:12},{wch:10}];
+  MC(ws2,0,0,0,14);MC(ws2,1,0,1,14);
+  XLSX.utils.book_append_sheet(wb,ws2,'🏆 Top 5 Performers');
+
+  // ═══════════════════════════════════════════════════════════
+  // SHEET 3: Detailed Marks  (with SGPA, %, Result Type; freeze panes)
+  // ═══════════════════════════════════════════════════════════
+  const DM=[];
+  // Row 0: main title
+  DM.push(R(TITLE(`VTU 2025 Scheme — Detailed Marks | Semester ${semStr} | ${branch} | Section ${section}`,13)));
+  // Row 1: subtitle
+  DM.push(R(SUBTITLE(`${batchStr} Batch  •  Branch: ${branch}  •  Section: ${section}  •  AY: ${acYear}  •  Generated: ${new Date().toLocaleString('en-IN')}`)));
+  // Row 2: column headers
+  const dmHdr=[IBH('USN'),IBH('Student Name'),IBH('Overall\nStatus'),IBH('Grand\nTotal'),IBH('SGPA'),IBH('Percentage\n(%)'),IBH('Classification')];
+  subOrder.forEach(code=>{
+    const sn=subMap[code].shortName;
+    dmHdr.push(HDR(`${sn}\nInt`,C.TEAL));
+    dmHdr.push(HDR(`${sn}\nExt`,C.SKY));
+    dmHdr.push(HDR(`${sn}\nTotal`,C.IB_HDR));
+    dmHdr.push(HDR(`${sn}\nRes`,C.PURPLE));
+    dmHdr.push(HDR(`${sn}\nType`,C.ARR_FG));
+  });
+  DM.push(dmHdr);
+
+  valid.forEach(s=>{
+    const isTop=top5USNs.has(s.usn);
+    const row=[
+      DATA(s.usn,C.IB,true),
+      DATA(s.name,C.INK,true),
+      STATUS(s.status),
+      NVAL(s.grandTotal,C.AMBER,true),
+      SGPA_CELL(s.sgpa,isTop),
+      Cpct(s.percentage,{font:sFont(true,11,C.SKY),alignment:sAlign('center','center'),border:allBorder()}),
+      Cs(s.classification,{font:sFont(true,11,s.classification==='Distinction'?C.DIST_FG:s.classification==='First Class'?C.FC_FG:C.SC_FG),fill:sFill(s.classification==='Distinction'?C.DIST_BG:s.classification==='First Class'?C.FC_BG:s.classification==='Second Class'?C.SC_BG:C.LGREY),alignment:sAlign('center','center'),border:allBorder()})
+    ];
+    subOrder.forEach(code=>{
+      const sub=s.subjects.find(x=>x.code===code);
+      if(sub){
+        const isA=sub.res==='A'||sub.res==='X';
+        row.push(isA?VAL('—',C.MUTED):NDATA(sub.int,C.TEAL));
+        row.push(isA?VAL('—',C.MUTED):NDATA(sub.ext,C.SKY));
+        row.push(isA?VAL('—',C.MUTED):NDATA(sub.tot,C.INK,true));
+        row.push(isA?VAL('—',C.MUTED):RES(sub.res));
+        row.push(ARREAR_CELL(sub.isArrear));
+      } else {
+        row.push(VAL('—',C.MUTED),VAL('—',C.MUTED),VAL('—',C.MUTED),VAL('—',C.MUTED),VAL('—',C.MUTED));
+      }
+    });
+    DM.push(row);
+  });
+
+  const ws3=buildSheet(DM);
+  MC(ws3,0,0,0,6+subOrder.length*5-1);
+  MC(ws3,1,0,1,6+subOrder.length*5-1);
+  const dm_cols=[{wch:18},{wch:32},{wch:13},{wch:11},{wch:9},{wch:13},{wch:14}];
+  subOrder.forEach(()=>{dm_cols.push({wch:10},{wch:10},{wch:11},{wch:8},{wch:10})});
+  ws3['!cols']=dm_cols;
+  // Freeze panes: first 2 columns + top 3 rows
+  ws3['!freeze']={xSplit:2,ySplit:3,topLeftCell:'C4',activePane:'bottomRight'};
+  XLSX.utils.book_append_sheet(wb,ws3,'Detailed Marks');
+
+  // ═══════════════════════════════════════════════════════════
+  // SHEET 4: Result Summary
+  // ═══════════════════════════════════════════════════════════
+  const RS=[];
+  RS.push(R(TITLE(`Result Summary – VTU Sem ${semStr} | ${branch} | Section ${section} | Dec 2025 / Jan 2026`,13)));
+  RS.push([]);
+  const rsHdr=[IBH('USN'),IBH('Student Name')];
+  subOrder.forEach(code=>rsHdr.push(HDR(subMap[code].shortName,C.IB_HDR)));
+  rsHdr.push(IBH('Grand\nTotal'),IBH('Pass/Fail\nCount'),IBH('SGPA'),IBH('Overall\nStatus'));
+  RS.push(rsHdr);
+
+  valid.forEach(s=>{
+    const isTop=top5USNs.has(s.usn);
+    const row=[DATA(s.usn,C.IB,true),DATA(s.name,C.INK,true)];
+    subOrder.forEach(code=>{
+      const sub=s.subjects.find(x=>x.code===code);
+      if(sub&&!['A','X'].includes(sub.res)) row.push(NDATA(sub.tot,C.INK));
+      else row.push(VAL('—',C.MUTED));
+    });
+    const pfStr=`P:${s.passCount} F:${s.failCount} A/X:${s.absentCount}`;
+    row.push(NVAL(s.grandTotal,C.AMBER,true));
+    row.push(DATA(pfStr,C.MUTED));
+    row.push(SGPA_CELL(s.sgpa,isTop));
+    row.push(STATUS(s.status));
+    RS.push(row);
+  });
+  RS.push([]);
+
+  RS.push(R(IBH('CLASS STATISTICS',undefined,12)));
+  RS.push(R(LBL('Total Students'),NVAL(st.total,C.IB,true)));
+  RS.push(R(LBL('Total PASS'),NVAL(st.pass,C.PASS_FG,true)));
+  RS.push(R(LBL('Total FAIL'),NVAL(st.fail,C.FAIL_FG,true)));
+  RS.push(R(LBL('Detained / Absent'),NVAL(st.detained,C.DET_FG,true)));
+  RS.push(R(LBL('Pass %'),PVAL(st.passPct,C.TEAL)));
+  RS.push(R(LBL('Average SGPA'),NDEC(st.avgSGPA,C.AMBER,true)));
+  RS.push(R(LBL('Students with Arrears'),NVAL(st.withArrears,C.ARR_FG,true)));
+
+  const ws4=buildSheet(RS);
+  const rs_cols=[{wch:18},{wch:34}];
+  subOrder.forEach(()=>rs_cols.push({wch:13}));
+  rs_cols.push({wch:13},{wch:20},{wch:10},{wch:13});
+  ws4['!cols']=rs_cols;
+  MC(ws4,0,0,0,3+subOrder.length);
+  XLSX.utils.book_append_sheet(wb,ws4,'Result Summary');
+
+  // ═══════════════════════════════════════════════════════════
+  // SHEET 5: Subject Analysis  (with Quality Index)
+  // ═══════════════════════════════════════════════════════════
+  const SA=[];
+  SA.push(R(TITLE(`Subject-Wise Performance Analysis — VTU 2025 Scheme | Semester ${semStr} | ${branch}`,13)));
+  SA.push([]);
+  SA.push(R(
+    IBH('Subject Code'),IBH('Subject Name'),IBH('Credits'),
+    HDR('Avg\nInternal',C.TEAL),HDR('Avg\nExternal',C.SKY),HDR('Avg\nTotal',C.AMBER),
+    HDR('Highest',C.PURPLE),HDR('Lowest',C.ROSE),
+    IBH('Pass'),IBH('Fail'),IBH('Absent/NE'),
+    HDR('Pass %',C.PASS_FG),HDR('Quality\nIndex ≥75',C.IB_HDR)
+  ));
+
+  subOrder.forEach(code=>{
+    const sm=subMap[code];
+    const passOnly=sm.pass+sm.fail;
+    const qi=sm.pass>0?+(sm.scores75/sm.total*100).toFixed(1):0;
+    SA.push(R(
+      DATA(code,C.PURPLE,true),
+      DATA(friendlySubName(sm.name),C.INK),
+      NDATA(getCredits(code),C.IB,true),
+      Cs(avg(sm.ints).toFixed(1),{font:sFont(false,11,C.TEAL),alignment:sAlign('center','center'),border:allBorder()}),
+      Cs(avg(sm.exts).toFixed(1),{font:sFont(false,11,C.SKY),alignment:sAlign('center','center'),border:allBorder()}),
+      Cs(avg(sm.tots).toFixed(1),{font:sFont(true,11,C.AMBER),alignment:sAlign('center','center'),border:allBorder()}),
+      NVAL(sm.tots.length?Math.max(...sm.tots):0,C.PURPLE),
+      NVAL(sm.tots.length?Math.min(...sm.tots):0,C.ROSE),
+      NVAL(sm.pass,C.PASS_FG),
+      NVAL(sm.fail,C.FAIL_FG),
+      NVAL(sm.absent,C.DET_FG),
+      PVAL(passOnly>0?+(sm.pass/passOnly*100).toFixed(1):0,C.PASS_FG),
+      Cpct(qi,{font:sFont(true,11,qi>=75?C.PASS_FG:qi>=50?C.AMBER:C.FAIL_FG),fill:sFill(qi>=75?C.PASS_BG:qi>=50?C.AMBER_L:C.FAIL_BG),alignment:sAlign('center','center'),border:allBorder()})
+    ));
+  });
+
+  const ws5=buildSheet(SA);
+  ws5['!cols']=[{wch:18},{wch:42},{wch:9},{wch:13},{wch:13},{wch:12},{wch:11},{wch:11},{wch:9},{wch:9},{wch:11},{wch:11},{wch:15}];
+  MC(ws5,0,0,0,12);
+  XLSX.utils.book_append_sheet(wb,ws5,'Subject Analysis');
+
+  // ═══════════════════════════════════════════════════════════
+  // SHEET 6: Result Classification (NEW — Distinction/FC/SC)
+  // ═══════════════════════════════════════════════════════════
+  const RC=[];
+  RC.push(R(TITLE(`Result Classification — VTU 2025 Scheme | SGPA-Based | Semester ${semStr} | ${branch}`,13)));
+  RC.push(R(SUBTITLE(`Distinction: SGPA ≥ 7.75  |  First Class: SGPA 6.75–7.74  |  Second Class: SGPA < 6.75  |  Branch: ${branch}  |  Section: ${section}`)));
+  RC.push([]);
+
+  // Summary cards
+  const dist=valid.filter(s=>s.classification==='Distinction');
+  const fc=valid.filter(s=>s.classification==='First Class');
+  const sc=valid.filter(s=>s.classification==='Second Class');
+  RC.push(R(
+    HDR(`🏅 DISTINCTION\n(SGPA ≥ 7.75)`,C.PURPLE,12),Ce(),Ce(),Ce(),
+    HDR(`🎖 FIRST CLASS\n(6.75 – 7.74)`,C.IB_HDR,12),Ce(),Ce(),Ce(),
+    HDR(`📘 SECOND CLASS\n(< 6.75)`,C.TEAL,12),Ce(),Ce(),Ce()
+  ));
+  RC.push(R(
+    Cs(`${dist.length}`,{font:sFont(true,30,C.PURPLE),fill:sFill(C.DIST_BG),alignment:sAlign('center','center'),border:medBorder()}),Ce(),Ce(),Ce(),
+    Cs(`${fc.length}`,{font:sFont(true,30,C.IB),fill:sFill(C.FC_BG),alignment:sAlign('center','center'),border:medBorder()}),Ce(),Ce(),Ce(),
+    Cs(`${sc.length}`,{font:sFont(true,30,C.TEAL),fill:sFill(C.SC_BG),alignment:sAlign('center','center'),border:medBorder()}),Ce(),Ce(),Ce()
+  ));
+  RC.push([]);
+
+  // Distinction list
+  RC.push(R(HDR('  🏅  DISTINCTION — SGPA ≥ 7.75',C.PURPLE,11),Ce(),Ce(),Ce(),Ce()));
+  RC.push(R(LBL('USN'),LBL('Student Name'),LBL('SGPA'),LBL('Classification'),LBL('Arrears')));
+  dist.sort((a,b)=>b.sgpa-a.sgpa).forEach(s=>{
+    RC.push(R(DATA(s.usn,C.IB,true),DATA(s.name,C.INK,true),SGPA_CELL(s.sgpa,top5USNs.has(s.usn)),
+      Cs('Distinction',{font:sFont(true,11,C.DIST_FG),fill:sFill(C.DIST_BG),alignment:sAlign('center','center'),border:allBorder()}),
+      s.arrears.length?DATA(s.arrears.join(', '),C.ARR_FG):VAL('None',C.PASS_FG)));
+  });
+  RC.push([]);
+
+  // First Class list
+  RC.push(R(HDR('  🎖  FIRST CLASS — SGPA 6.75 to 7.74',C.IB_HDR,11),Ce(),Ce(),Ce(),Ce()));
+  RC.push(R(LBL('USN'),LBL('Student Name'),LBL('SGPA'),LBL('Classification'),LBL('Arrears')));
+  fc.sort((a,b)=>b.sgpa-a.sgpa).forEach(s=>{
+    RC.push(R(DATA(s.usn,C.IB,true),DATA(s.name,C.INK,true),SGPA_CELL(s.sgpa,top5USNs.has(s.usn)),
+      Cs('First Class',{font:sFont(true,11,C.FC_FG),fill:sFill(C.FC_BG),alignment:sAlign('center','center'),border:allBorder()}),
+      s.arrears.length?DATA(s.arrears.join(', '),C.ARR_FG):VAL('None',C.PASS_FG)));
+  });
+  RC.push([]);
+
+  // Second Class list
+  RC.push(R(HDR('  📘  SECOND CLASS — SGPA < 6.75',C.TEAL,11),Ce(),Ce(),Ce(),Ce()));
+  RC.push(R(LBL('USN'),LBL('Student Name'),LBL('SGPA'),LBL('Classification'),LBL('Arrears')));
+  sc.sort((a,b)=>b.sgpa-a.sgpa).forEach(s=>{
+    RC.push(R(DATA(s.usn,C.IB,true),DATA(s.name,C.INK,true),SGPA_CELL(s.sgpa,top5USNs.has(s.usn)),
+      Cs('Second Class',{font:sFont(true,11,C.SC_FG),fill:sFill(C.SC_BG),alignment:sAlign('center','center'),border:allBorder()}),
+      s.arrears.length?DATA(s.arrears.join(', '),C.ARR_FG):VAL('None',C.PASS_FG)));
+  });
+  RC.push([]);
+  RC.push(R(SUBTITLE(`VTU 2025 Scheme  |  SGPA calculated for current semester subjects only  |  Arrear subjects excluded from SGPA  |  Total Classified: ${dist.length+fc.length+sc.length}`)));
+
+  const ws6=buildSheet(RC);
+  [0,4,8].forEach(c=>{MC(ws6,3,c,3,c+3);MC(ws6,4,c,4,c+3)});
+  MC(ws6,0,0,0,11);MC(ws6,1,0,1,11);
+  ws6['!cols']=[{wch:20},{wch:36},{wch:10},{wch:16},{wch:30}];
+  XLSX.utils.book_append_sheet(wb,ws6,'Result Classification');
+
+  // ── Download ──
+  const dateTag=new Date().toISOString().slice(0,10);
+  XLSX.writeFile(wb,`SES_Admin_Report_${branch.replace(/\s+/g,'_')}_Sem${semStr}_${dateTag}.xlsx`);
+  logLine(`📥 Report downloaded: SES_Admin_Report_${branch}_Sem${semStr}_${dateTag}.xlsx`,'ls');
+  toast('📥 SES Analysis Report downloaded successfully!','ok');
+}
+
+// ── Subject name helpers ──
+const SHORT_NAMES={
+  'CALCULUS AND LINEAR ALGEBRA':'Maths','CALCULUS':'Maths',
+  'QUANTUM PHYSICS':'Physics','QUANTUM PHYSICS AND APPLICATIONS':'Physics',
+  'COMPUTER-AIDED ENGINEERING DRAWING':'Engg Drawing','ENGINEERING DRAWING':'Engg Drawing',
+  'PROGRAMMING IN C':'Prog in C',
+  'SOFT SKILLS':'Soft Skills',
+  'C PROGRAMMING LAB':'C Lab',
+  'INNOVATION AND DESIGN THINKING':'IDT Lab','INNOVATION':'IDT Lab',
+  'SAMSKRUTIKA KANNADA':'Kannada','KANNADA':'Kannada',
+  'INTRODUCTION TO ELECTRONICS':'ECE Intro','ELECTRONICS':'ECE Intro',
+  'ENGINEERING MATHEMATICS':'Engg Maths',
+  'DATA STRUCTURES':'DSA','OBJECT ORIENTED':'OOP','COMPUTER NETWORKS':'CN',
+  'OPERATING SYSTEMS':'OS','DATABASE':'DBMS','MACHINE LEARNING':'ML',
+  'ARTIFICIAL INTELLIGENCE':'AI','COMPUTER ORGANIZATION':'COA',
+  'DESIGN AND ANALYSIS':'DAA','WEB TECHNOLOGY':'Web Tech',
+};
+function subShortName(name){
+  const upper=name.toUpperCase();
+  for(const [key,val] of Object.entries(SHORT_NAMES)){if(upper.includes(key))return val}
+  return name.split(' ').slice(0,3).join(' ');
+}
+function subFriendlyName(name){
+  const u=name.toUpperCase();
+  if(u.includes('CALCULUS'))return 'Calculus & Linear Algebra';
+  if(u.includes('QUANTUM'))return 'Quantum Physics & Applications';
+  if(u.includes('ENGINEERING DRAWING')||u.includes('CEDS'))return 'Computer-Aided Engg Drawing';
+  if(u.includes('PROGRAMMING IN C')&&!u.includes('LAB'))return 'Programming in C';
+  if(u.includes('SOFT SKILL'))return 'Soft Skills';
+  if(u.includes('C PROGRAMMING')||u.includes('POPL'))return 'C Programming Lab';
+  if(u.includes('INNOVATION')||u.includes('DESIGN THINKING'))return 'Innovation & Design Thinking Lab';
+  if(u.includes('KANNADA'))return 'Kannada';
+  if(u.includes('ELECTRONICS'))return 'Intro to Electronics & Comm Engg';
+  return name;
+}
+function friendlySubName(name){return subFriendlyName(name)}
+
+// ── Toast ──
+function toast(msg,type){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className=type||'';
+  void t.offsetHeight;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),4000);
+}
+</script>
+</body>
+</html>
